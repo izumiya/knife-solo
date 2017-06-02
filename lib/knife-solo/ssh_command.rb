@@ -79,6 +79,10 @@ module KnifeSolo
           :default     => 300,
           :proc        => Proc.new { |v| v.to_i }
 
+        option :ssh_remote_user,
+          :long        => '--ssh-remote-user REMOTE_USERNAME',
+          :description => 'The ssh proxy remote username'
+
         option :startup_script,
           :short       => '-s FILE',
           :long        => '--startup-script FILE',
@@ -181,6 +185,7 @@ module KnifeSolo
       # Respect users' specification of config[:ssh_config]
       # Prevents Net::SSH itself from applying the default ssh_config files.
       options[:config] = false
+      options[:remote_user] = config[:ssh_remote_user] if config[:ssh_remote_user]
       options
     end
 
